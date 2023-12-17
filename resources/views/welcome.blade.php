@@ -1,140 +1,421 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Your Meal - самый сочный бургер</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('icon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('icon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('icon/favicon-16x16.png')}}">
+    <link rel="mask-icon" href="{{asset('icon/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
 
-        <title>Laravel</title>
+    <link rel="preload" href="{{asset('fonts/nunito-v26-cyrillic_latin-600.woff2')}}" as="font" crossorigin>
+    <link rel="preload" href="{{asset('fonts/nunito-v26-cyrillic_latin-800.woff2')}}" as="font" crossorigin>
+    <link rel="preload" href="{{asset('fonts/nunito-v26-cyrillic_latin-regular.woff2')}}" as="font" crossorigin>
+    <link rel="stylesheet" href="{{asset('css/index.css')}}">
+</head>
+<body>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+<header class="header">
+    <div class="container header__container">
+        <svg class="header__logo" viewBox="0 0 199 44" role="img" aria-label="Логотип YourMeal">
+            <use href="img/sprite.svg#logo"/>
+        </svg>
 
-        <!-- Styles -->
-        <style>
-            /* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Figtree, sans-serif;font-feature-settings:normal}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::-webkit-backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.relative{position:relative}.mx-auto{margin-left:auto;margin-right:auto}.mx-6{margin-left:1.5rem;margin-right:1.5rem}.ml-4{margin-left:1rem}.mt-16{margin-top:4rem}.mt-6{margin-top:1.5rem}.mt-4{margin-top:1rem}.-mt-px{margin-top:-1px}.mr-1{margin-right:0.25rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.h-16{height:4rem}.h-7{height:1.75rem}.h-6{height:1.5rem}.h-5{height:1.25rem}.min-h-screen{min-height:100vh}.w-auto{width:auto}.w-16{width:4rem}.w-7{width:1.75rem}.w-6{width:1.5rem}.w-5{width:1.25rem}.max-w-7xl{max-width:80rem}.shrink-0{flex-shrink:0}.scale-100{--tw-scale-x:1;--tw-scale-y:1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.items-center{align-items:center}.justify-center{justify-content:center}.gap-6{gap:1.5rem}.gap-4{gap:1rem}.self-center{align-self:center}.rounded-lg{border-radius:0.5rem}.rounded-full{border-radius:9999px}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity))}.bg-red-50{--tw-bg-opacity:1;background-color:rgb(254 242 242 / var(--tw-bg-opacity))}.bg-dots-darker{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E")}.from-gray-700\/50{--tw-gradient-from:rgb(55 65 81 / 0.5);--tw-gradient-to:rgb(55 65 81 / 0);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:rgb(0 0 0 / 0);--tw-gradient-stops:var(--tw-gradient-from), transparent, var(--tw-gradient-to)}.bg-center{background-position:center}.stroke-red-500{stroke:#ef4444}.stroke-gray-400{stroke:#9ca3af}.p-6{padding:1.5rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.text-center{text-align:center}.text-right{text-align:right}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.font-semibold{font-weight:600}.leading-relaxed{line-height:1.625}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-gray-500\/20{--tw-shadow-color:rgb(107 114 128 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.selection\:bg-red-500 *::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.selection\:bg-red-500::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.hover\:text-gray-900:hover{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.hover\:text-gray-700:hover{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity))}.focus\:rounded-sm:focus{border-radius:0.125rem}.focus\:outline:focus{outline-style:solid}.focus\:outline-2:focus{outline-width:2px}.focus\:outline-red-500:focus{outline-color:#ef4444}.group:hover .group-hover\:stroke-gray-600{stroke:#4b5563}.z-10{z-index: 10}@media (prefers-reduced-motion: no-preference){.motion-safe\:hover\:scale-\[1\.01\]:hover{--tw-scale-x:1.01;--tw-scale-y:1.01;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}}@media (prefers-color-scheme: dark){.dark\:bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity))}.dark\:bg-gray-800\/50{background-color:rgb(31 41 55 / 0.5)}.dark\:bg-red-800\/20{background-color:rgb(153 27 27 / 0.2)}.dark\:bg-dots-lighter{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E")}.dark\:bg-gradient-to-bl{background-image:linear-gradient(to bottom left, var(--tw-gradient-stops))}.dark\:stroke-gray-600{stroke:#4b5563}.dark\:text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.dark\:text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.dark\:shadow-none{--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.dark\:ring-1{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.dark\:ring-inset{--tw-ring-inset:inset}.dark\:ring-white\/5{--tw-ring-color:rgb(255 255 255 / 0.05)}.dark\:hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.group:hover .dark\:group-hover\:stroke-gray-400{stroke:#9ca3af}}@media (min-width: 640px){.sm\:fixed{position:fixed}.sm\:top-0{top:0px}.sm\:right-0{right:0px}.sm\:ml-0{margin-left:0px}.sm\:flex{display:flex}.sm\:items-center{align-items:center}.sm\:justify-center{justify-content:center}.sm\:justify-between{justify-content:space-between}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:gap-8{gap:2rem}.lg\:p-8{padding:2rem}}
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
-                    @auth
-                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+        <div class="header__title-container">
+            <h1 class="header__title">
+                <span class="header__title-text">Только самые</span>
+                <span class="header__title-text header__title-text_red">сочные бургеры!</span>
+            </h1>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+            <p class="header__appeal">Бесплатная доставка от 599₽</p>
+        </div>
+    </div>
+</header>
 
-            <div class="max-w-7xl mx-auto p-6 lg:p-8">
-                <div class="flex justify-center">
-                    <svg viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto bg-gray-100 dark:bg-gray-900">
-                        <path d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675 29.2132 61.5409 29.3392 61.3887 29.4265L49.9104 36.0351V49.1337C49.9104 49.4902 49.7209 49.8192 49.4118 49.9987L25.4519 63.7916C25.3971 63.8227 25.3372 63.8427 25.2774 63.8639C25.255 63.8714 25.2338 63.8851 25.2101 63.8913C25.0426 63.9354 24.8666 63.9354 24.6991 63.8913C24.6716 63.8838 24.6467 63.8689 24.6205 63.8589C24.5657 63.8389 24.5084 63.8215 24.456 63.7916L0.501061 49.9987C0.348882 49.9113 0.222437 49.7853 0.134469 49.6334C0.0465019 49.4816 0.000120578 49.3092 0 49.1337L0 8.10652C0 8.01678 0.0124642 7.92953 0.0348998 7.84477C0.0423783 7.8161 0.0598282 7.78993 0.0697995 7.76126C0.0884958 7.70891 0.105946 7.65531 0.133367 7.6067C0.152063 7.5743 0.179485 7.54812 0.20192 7.51821C0.230588 7.47832 0.256763 7.43719 0.290416 7.40229C0.319084 7.37362 0.356476 7.35243 0.388883 7.32751C0.425029 7.29759 0.457436 7.26518 0.498568 7.2415L12.4779 0.345059C12.6296 0.257786 12.8015 0.211853 12.9765 0.211853C13.1515 0.211853 13.3234 0.257786 13.475 0.345059L25.4531 7.2415H25.4556C25.4955 7.26643 25.5292 7.29759 25.5653 7.32626C25.5977 7.35119 25.6339 7.37362 25.6625 7.40104C25.6974 7.43719 25.7224 7.47832 25.7523 7.51821C25.7735 7.54812 25.8021 7.5743 25.8196 7.6067C25.8483 7.65656 25.8645 7.70891 25.8844 7.76126C25.8944 7.78993 25.9118 7.8161 25.9193 7.84602C25.9423 7.93096 25.954 8.01853 25.9542 8.10652V33.7317L35.9355 27.9844V14.8846C35.9355 14.7973 35.948 14.7088 35.9704 14.6253C35.9792 14.5954 35.9954 14.5692 36.0053 14.5405C36.0253 14.4882 36.0427 14.4346 36.0702 14.386C36.0888 14.3536 36.1163 14.3274 36.1375 14.2975C36.1674 14.2576 36.1923 14.2165 36.2272 14.1816C36.2559 14.1529 36.292 14.1317 36.3244 14.1068C36.3618 14.0769 36.3942 14.0445 36.4341 14.0208L48.4147 7.12434C48.5663 7.03694 48.7383 6.99094 48.9133 6.99094C49.0883 6.99094 49.2602 7.03694 49.4118 7.12434L61.3899 14.0208C61.4323 14.0457 61.4647 14.0769 61.5021 14.1055C61.5333 14.1305 61.5694 14.1529 61.5981 14.1803C61.633 14.2165 61.6579 14.2576 61.6878 14.2975C61.7103 14.3274 61.7377 14.3536 61.7551 14.386C61.7838 14.4346 61.8 14.4882 61.8199 14.5405C61.8312 14.5692 61.8474 14.5954 61.8548 14.6253ZM59.893 27.9844V16.6121L55.7013 19.0252L49.9104 22.3593V33.7317L59.8942 27.9844H59.893ZM47.9149 48.5566V37.1768L42.2187 40.4299L25.953 49.7133V61.2003L47.9149 48.5566ZM1.99677 9.83281V48.5566L23.9562 61.199V49.7145L12.4841 43.2219L12.4804 43.2194L12.4754 43.2169C12.4368 43.1945 12.4044 43.1621 12.3682 43.1347C12.3371 43.1097 12.3009 43.0898 12.2735 43.0624L12.271 43.0586C12.2386 43.0275 12.2162 42.9888 12.1887 42.9539C12.1638 42.9203 12.1339 42.8916 12.114 42.8567L12.1127 42.853C12.0903 42.8156 12.0766 42.7707 12.0604 42.7283C12.0442 42.6909 12.023 42.656 12.013 42.6161C12.0005 42.5688 11.998 42.5177 11.9931 42.4691C11.9881 42.4317 11.9781 42.3943 11.9781 42.3569V15.5801L6.18848 12.2446L1.99677 9.83281ZM12.9777 2.36177L2.99764 8.10652L12.9752 13.8513L22.9541 8.10527L12.9752 2.36177H12.9777ZM18.1678 38.2138L23.9574 34.8809V9.83281L19.7657 12.2459L13.9749 15.5801V40.6281L18.1678 38.2138ZM48.9133 9.14105L38.9344 14.8858L48.9133 20.6305L58.8909 14.8846L48.9133 9.14105ZM47.9149 22.3593L42.124 19.0252L37.9323 16.6121V27.9844L43.7219 31.3174L47.9149 33.7317V22.3593ZM24.9533 47.987L39.59 39.631L46.9065 35.4555L36.9352 29.7145L25.4544 36.3242L14.9907 42.3482L24.9533 47.987Z" fill="#FF2D20"/>
-                    </svg>
-                </div>
+<main>
+    <nav class="navigation">
+        <div class="container navigation__container">
+            <ul class="navigation__list">
+                <li class="navigation__item">
+                    <button class="navigation__button navigation__button_burger navigation__button_active">Бургеры
+                    </button>
+                </li>
+                <li class="navigation__item">
+                    <button class="navigation__button navigation__button_snack">Закуски</button>
+                </li>
+                <li class="navigation__item">
+                    <button class="navigation__button navigation__button_hot-dog">Хот-доги</button>
+                </li>
+                <li class="navigation__item">
+                    <button class="navigation__button navigation__button_combo">Комбо</button>
+                </li>
+                <li class="navigation__item">
+                    <button class="navigation__button navigation__button_shawarma">Шаурма</button>
+                </li>
+                <li class="navigation__item">
+                    <button class="navigation__button navigation__button_pizza">Пицца</button>
+                </li>
+                <li class="navigation__item">
+                    <button class="navigation__button navigation__button_wok">Вок</button>
+                </li>
+                <li class="navigation__item">
+                    <button class="navigation__button navigation__button_dessert">Десерты</button>
+                </li>
+                <li class="navigation__item">
+                    <button class="navigation__button navigation__button_sauce">Соусы</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-                <div class="mt-16">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                        <a href="https://laravel.com/docs" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                    </svg>
+    <section class="catalog">
+        <div class="container catalog__container">
+            <div class="catalog__order order">
+                <section class="order__wrapper "> <!-- open_order -->
+                    <div class="order__wrap-title" tabindex="0" role="button">
+                        <h2 class="order__title">Корзина</h2>
+
+                        <span class="order__count">4</span>
+                    </div>
+
+                    <div class="order__wrap_list ">
+                        <ul class="order__list">
+                            <li class="order__item">
+                                <img src="{{asset('img/burger1.jpg')}}" alt="Супер сырный" class="order__image">
+
+                                <div class="order__product">
+                                    <h3 class="order__product-title">Супер сырный</h3>
+
+                                    <p class="order__product-weight">512г</p>
+
+                                    <p class="order__product-price">550
+                                        <span class="currency">₽</span>
+                                    </p>
                                 </div>
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Documentation</h2>
+                                <div class="order__product-count count">
+                                    <button class="count__minus">-</button>
+                                    <p class="count__amount">1</p>
+                                    <button class="count__plus">+</button>
+                                </div>
+                            </li>
 
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel has wonderful documentation covering every aspect of the framework. Whether you are a newcomer or have prior experience with Laravel, we recommend reading our documentation from beginning to end.
-                                </p>
-                            </div>
+                            <li class="order__item">
+                                <img src="{{asset('img/patato-free1.jpg')}}" alt="Картошка фри" class="order__image">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
+                                <div class="order__product">
+                                    <h3 class="order__product-title">Картошка фри</h3>
 
-                        <a href="https://laracasts.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
-                                    </svg>
+                                    <p class="order__product-weight">180г</p>
+
+                                    <p class="order__product-price">245
+                                        <span class="currency">₽</span>
+                                    </p>
                                 </div>
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laracasts</h2>
+                                <div class="order__product-count count">
+                                    <button class="count__minus">-</button>
+                                    <p class="count__amount">2</p>
+                                    <button class="count__plus">+</button>
+                                </div>
+                            </li>
 
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
-                                </p>
-                            </div>
+                            <li class="order__item">
+                                <img src="{{asset('img/hot-dog1.jpg')}}" alt="Жгучий хот-дог" class="order__image">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
+                                <div class="order__product">
+                                    <h3 class="order__product-title">Жгучий хот-дог</h3>
 
-                        <a href="https://laravel-news.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-                                    </svg>
+                                    <p class="order__product-weight">245г</p>
+
+                                    <p class="order__product-price">239
+                                        <span class="currency">₽</span>
+                                    </p>
                                 </div>
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laravel News</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                                </p>
-                            </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
-
-                        <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
-                                    </svg>
+                                <div class="order__product-count count">
+                                    <button class="count__minus">-</button>
+                                    <p class="count__amount">1</p>
+                                    <button class="count__plus">+</button>
                                 </div>
+                            </li>
+                        </ul>
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</h2>
+                        <div class="order__total">
+                            <p>Итого</p>
+                            <p>
+                                <span class="order__total-amount">1279</span>
+                                <span class="currency">₽</span>
+                            </p>
+                        </div>
 
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Forge</a>, <a href="https://vapor.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Vapor</a>, <a href="https://nova.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Nova</a>, and <a href="https://envoyer.io" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Telescope</a>, and more.
-                                </p>
-                            </div>
+                        <button class="order__submit">Оформить заказ</button>
+
+                        <div class="order__wrap-appeal">
+                            <p class="order__appeal">Бесплатная доставка</p>
+                            <button class="order__close">Свернуть</button>
                         </div>
                     </div>
-                </div>
+                </section>
+            </div>
 
-                <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">
-                        <div class="flex items-center gap-4">
-                            <a href="https://github.com/sponsors/taylorotwell" class="group inline-flex items-center hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="-mt-px mr-1 w-5 h-5 stroke-gray-400 dark:stroke-gray-600 group-hover:stroke-gray-600 dark:group-hover:stroke-gray-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                </svg>
-                                Sponsor
-                            </a>
-                        </div>
-                    </div>
+            <div class="catalog__wrapper">
+                <h2 class="catalog__title">Бургеры</h2>
 
-                    <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
+                <div class="catalog__wrap_list">
+                    <ul class="catalog__list">
+                        <li class="catalog__item">
+                            <article class="product">
+                                <img src="{{asset('img/photo-5.jpg')}}" alt="Мясная бомба" class="product__image">
+
+                                <p class="product__price">689 <span class="currency">₽</span></p>
+
+                                <h3 class="product__title">
+                                    <button class="product__detail">Мясная бомба</button>
+                                </h3>
+
+                                <p class="product__weight">520г</p>
+
+                                <button class="product__add" type="button">Добавить</button>
+                            </article>
+                        </li>
+
+                        <li class="catalog__item">
+                            <article class="product">
+                                <img src="{{asset('img/photo-1.jpg')}}" alt="Супер сырный" class="product__image">
+
+                                <p class="product__price">550 <span class="currency">₽</span></p>
+
+                                <h3 class="product__title">
+                                    <button class="product__detail">Супер сырный</button>
+                                </h3>
+
+                                <p class="product__weight">512г</p>
+
+                                <button class="product__add" type="button">Добавить</button>
+                            </article>
+                        </li>
+
+                        <li class="catalog__item">
+                            <article class="product">
+                                <img src="{{asset('img/photo-3.jpg')}}" alt="Сытный" class="product__image">
+
+                                <p class="product__price">639 <span class="currency">₽</span></p>
+
+                                <h3 class="product__title">
+                                    <button class="product__detail">Сытный</button>
+                                </h3>
+
+                                <p class="product__weight">580г</p>
+
+                                <button class="product__add" type="button">Добавить</button>
+                            </article>
+                        </li>
+
+                        <li class="catalog__item">
+                            <article class="product">
+                                <img src="{{asset('img/photo.jpg')}}" alt="Тяжелый удар" class="product__image">
+
+                                <p class="product__price">480 <span class="currency">₽</span></p>
+
+                                <h3 class="product__title">
+                                    <button class="product__detail">Тяжелый удар</button>
+                                </h3>
+
+                                <p class="product__weight">470г</p>
+
+                                <button class="product__add" type="button">Добавить</button>
+                            </article>
+                        </li>
+
+                        <li class="catalog__item">
+                            <article class="product">
+                                <img src="{{asset('img/photo-2.jpg')}}" alt="Вечная классика" class="product__image">
+
+                                <p class="product__price">450 <span class="currency">₽</span></p>
+
+                                <h3 class="product__title">
+                                    <button class="product__detail">Вечная классика</button>
+                                </h3>
+
+                                <p class="product__weight">450г</p>
+
+                                <button class="product__add" type="button">Добавить</button>
+                            </article>
+                        </li>
+
+                        <li class="catalog__item">
+                            <article class="product">
+                                <img src="{{asset('img/photo-4.jpg')}}" alt="Итальянский" class="product__image">
+
+                                <p class="product__price">560 <span class="currency">₽</span></p>
+
+                                <h3 class="product__title">
+                                    <button class="product__detail">Итальянский</button>
+                                </h3>
+
+                                <p class="product__weight">510г</p>
+
+                                <button class="product__add" type="button">Добавить</button>
+                            </article>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </body>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <svg class="footer__logo" viewBox="0 0 199 44" role="img" aria-label="Логотип YourMeal">
+                <use href="img/sprite.svg#logo"/>
+            </svg>
+
+            <address class="footer__address">
+                <div class="footer__contact">
+                    <h2 class="footer__title">Номер для заказа</h2>
+
+                    <a class="footer__link-phone" href="tel: +992888448410">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.01 15.38C18.78 15.38 17.59 15.18 16.48 14.82C16.13 14.7 15.74 14.79 15.47 15.06L13.9 17.03C11.07 15.68 8.42 13.13 7.01 10.2L8.96 8.54C9.23 8.26 9.31 7.87 9.2 7.52C8.83 6.41 8.64 5.22 8.64 3.99C8.64 3.45 8.19 3 7.65 3H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21C20.72 21 21 20.37 21 19.82V16.37C21 15.83 20.55 15.38 20.01 15.38Z"/>
+                        </svg>
+
+                        <span>+992-(88)-844-84-10</span>
+                    </a>
+                </div>
+
+                <div class="footer__contact">
+                    <h2 class="footer__title footer__title_sn">Мы в соцсетях</h2>
+
+                    <ul class="footer__list">
+                        <li class="footer__list-item">
+                            <a href="#" class="footer__link-sn" aria-label="группа в вк">
+                                <svg width="36" height="36" viewBox="0 0 36 36" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18 0C8.05875 0 0 8.05875 0 18C0 27.9412 8.05875 36 18 36C27.9412 36 36 27.9412 36 18C36 8.05875 27.9412 0 18 0ZM24.9225 20.3081C24.9225 20.3081 26.5144 21.8794 26.9062 22.6087C26.9175 22.6237 26.9231 22.6387 26.9269 22.6462C27.0862 22.9144 27.1237 23.1225 27.045 23.2781C26.9137 23.5369 26.4637 23.6644 26.31 23.6756H23.4975C23.3025 23.6756 22.8937 23.625 22.3987 23.2837C22.0181 23.0175 21.6431 22.5806 21.2775 22.155C20.7319 21.5212 20.2594 20.9738 19.7831 20.9738C19.7226 20.9736 19.6625 20.9831 19.605 21.0019C19.245 21.1181 18.7838 21.6319 18.7838 23.0006C18.7838 23.4281 18.4462 23.6737 18.2081 23.6737H16.92C16.4812 23.6737 14.1956 23.52 12.1706 21.3844C9.69187 18.7687 7.46062 13.5225 7.44187 13.4737C7.30125 13.1344 7.59187 12.9525 7.90875 12.9525H10.7494C11.1281 12.9525 11.2519 13.1831 11.3381 13.3875C11.4394 13.6256 11.8106 14.5725 12.42 15.6375C13.4081 17.3737 14.0138 18.0787 14.4994 18.0787C14.5904 18.0777 14.6799 18.0545 14.76 18.0112C15.3937 17.6587 15.2756 15.3994 15.2475 14.9306C15.2475 14.8425 15.2456 13.92 14.9212 13.4775C14.6887 13.1569 14.2931 13.035 14.0531 12.99C14.1503 12.856 14.2782 12.7473 14.4262 12.6731C14.8612 12.4556 15.645 12.4237 16.4231 12.4237H16.8563C17.7 12.435 17.9175 12.4894 18.2231 12.5662C18.8419 12.7144 18.855 13.1137 18.8006 14.4806C18.7838 14.8687 18.7669 15.3075 18.7669 15.825C18.7669 15.9375 18.7612 16.0575 18.7612 16.185C18.7425 16.8806 18.72 17.67 19.2112 17.9944C19.2753 18.0346 19.3494 18.056 19.425 18.0562C19.5956 18.0562 20.1094 18.0562 21.5006 15.6694C21.9297 14.9011 22.3025 14.1028 22.6162 13.2806C22.6444 13.2319 22.7269 13.0819 22.8244 13.0237C22.8963 12.9871 22.9761 12.9684 23.0569 12.9694H26.3962C26.76 12.9694 27.0094 13.0237 27.0562 13.1644C27.1387 13.3875 27.0412 14.0681 25.5169 16.1325L24.8362 17.0306C23.4544 18.8419 23.4544 18.9338 24.9225 20.3081Z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="#" class="footer__link-sn" aria-label="канал в телеграм">
+                                <svg width="36" height="36" viewBox="0 0 36 36" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M36 18C36 22.7739 34.1036 27.3523 30.7279 30.7279C27.3523 34.1036 22.7739 36 18 36C13.2261 36 8.64773 34.1036 5.27208 30.7279C1.89642 27.3523 0 22.7739 0 18C0 13.2261 1.89642 8.64773 5.27208 5.27208C8.64773 1.89642 13.2261 0 18 0C22.7739 0 27.3523 1.89642 30.7279 5.27208C34.1036 8.64773 36 13.2261 36 18ZM18.6458 13.2885C16.8952 14.0175 13.3942 15.525 8.14725 17.811C7.29675 18.1485 6.849 18.4815 6.8085 18.8055C6.741 19.3522 7.42725 19.5683 8.361 19.863L8.75475 19.9868C9.67275 20.286 10.9102 20.6348 11.5515 20.6483C12.1365 20.6618 12.7867 20.4233 13.5045 19.9283C18.4072 16.6185 20.9385 14.9467 21.096 14.9107C21.2085 14.8837 21.366 14.8523 21.4695 14.9468C21.5752 15.039 21.564 15.2168 21.5528 15.264C21.4853 15.5542 18.792 18.0562 17.3993 19.3522C16.965 19.7572 16.6567 20.043 16.5938 20.1082C16.455 20.25 16.314 20.3895 16.1707 20.5268C15.3157 21.3503 14.6768 21.9668 16.2045 22.9748C16.9403 23.4608 17.5298 23.859 18.117 24.2595C18.756 24.696 19.395 25.1303 20.223 25.6748C20.4322 25.8098 20.6348 25.956 20.8305 26.0955C21.5753 26.6265 22.248 27.1035 23.0737 27.027C23.5553 26.982 24.0525 26.532 24.3045 25.182C24.9007 21.9938 26.073 15.0885 26.343 12.2423C26.3595 12.0056 26.3497 11.7679 26.3137 11.5335C26.2926 11.3443 26.201 11.17 26.0573 11.0452C25.8525 10.9039 25.6085 10.8307 25.3597 10.836C24.6847 10.8472 23.643 11.2095 18.6458 13.2885Z"/>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </address>
+
+            <div class="footer__development">
+                <p>© YouMeal, 2022</p>
+                <p>Design: <a href="#">Anastasia Ilina</a></p>
+                <p>Developer: <a href="mailto: radzhabov.dev@gmail.com">Radzhabov Rustam</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<div class="modal modal_product">
+    <div class="modal__main modal-product">
+        <div class="modal-product__container">
+            <h2 class="modal-product__title">Мясная бомба</h2>
+
+            <div class="modal-product__content">
+                <img src="{{asset('img/photo-5.jpg')}} " alt="Мясная бомба" class="modal-product__image">
+
+                <p class="modal-product__description">Супер мясное наслаждение! Большая рубленая котлета из свежего говяжего мяса покорит вас своей сочностью, а хрустящие листья салата добавят свежести.</p>
+
+                <div class="modal-product__ingredients ingredients">
+                    <h3 class="ingredients__title">Состав:</h3>
+
+                    <ul class="ingredients__list">
+                        <li class="ingredients__item">Пшеничная булочка</li>
+                        <li class="ingredients__item">Котлета из говядины</li>
+                        <li class="ingredients__item">Красный лук</li>
+                        <li class="ingredients__item">Листья салата</li>
+                        <li class="ingredients__item">Соус сорчичный</li>
+                    </ul>
+
+                    <p class="ingredients__calories">520г, ккал 430</p>
+                </div>
+
+                <div class="modal-product__footer">
+
+                    <div class="modal-product__add">
+                        <button class="modal-product__btn">Добавить</button>
+
+                        <div class="modal-product__count count">
+                            <button class="count__minus">-</button>
+                            <p class="count__amount">1</p>
+                            <button class="count__plus">+</button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <p class="modal-product__price">239
+                    <span class="currency">₽</span>
+                </p>
+            </div>
+        </div>
+
+        <button class="modal__close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5.07422" y="5.28247" width="1" height="20" transform="rotate(-45 5.07422 5.28247)"/>
+                <rect x="5.78125" y="19.4246" width="1" height="20" transform="rotate(-135 5.78125 19.4246)"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<div class="modal modal_delivery "> <!-- modal_open -->
+    <div class="modal__main modal-delivery">
+        <div class="modal-delivery__container">
+            <h2 class="modal-delivery__title">Доставка</h2>
+
+            <form class="modal-delivery__form" id="delivery">
+                <fieldset class="modal-delivery__fieldset">
+                    <input class="modal-delivery__input" type="text" placeholder="Ваше имя">
+                    <input class="modal-delivery__input" type="tel" placeholder="Телефон">
+                </fieldset>
+
+                <fieldset class="modal-delivery__fieldset modal-delivery__fieldset_radio">
+                    <label class="modal-delivery__label">
+                        <input class="modal-delivery__radio " type="radio" name="format" value="pickup">
+                        <span>Самовывоз</span>
+                    </label>
+                    <label class="modal-delivery__label">
+                        <input class="modal-delivery__radio" type="radio" name="format" value="delivery" checked>
+                        <span>Доставка</span>
+                    </label>
+                </fieldset>
+
+                <fieldset class="modal-delivery__fieldset ">
+                    <input class="modal-delivery__input" type="text" placeholder="Улица, дом, квартира">
+                    <input class="modal-delivery__input modal-delivery__input_half" type="number" placeholder="Этаж">
+                    <input class="modal-delivery__input modal-delivery__input_half" type="number" placeholder="Домофон">
+                </fieldset>
+            </form>
+
+            <button class="modal-delivery__submit" type="submit" form="delivery">Оформить</button>
+        </div>
+
+        <button class="modal__close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5.07422" y="5.28247" width="1" height="20" transform="rotate(-45 5.07422 5.28247)"/>
+                <rect x="5.78125" y="19.4246" width="1" height="20" transform="rotate(-135 5.78125 19.4246)"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+</body>
 </html>
