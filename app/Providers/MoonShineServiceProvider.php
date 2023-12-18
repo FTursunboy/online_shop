@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\MoonShine\Resources\CategoryResource;
+use App\MoonShine\Resources\GoodResource;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
 use MoonShine\MoonShine;
 use MoonShine\Menu\MenuGroup;
@@ -26,7 +27,7 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
     {
         return [
             MenuItem::make('Категории', new CategoryResource()),
-            MenuItem::make('Товары', new CategoryResource()),
+            MenuItem::make('Товары', new GoodResource()),
         ];
     }
 
