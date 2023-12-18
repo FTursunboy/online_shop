@@ -22,14 +22,10 @@
 
 <header class="header">
     <div class="container header__container">
-        <svg class="header__logo" viewBox="0 0 199 44" role="img" aria-label="Логотип YourMeal">
-            <use href="img/sprite.svg#logo"/>
-        </svg>
-
         <div class="header__title-container">
             <h1 class="header__title">
                 <span class="header__title-text">Только самые</span>
-                <span class="header__title-text header__title-text_red">сочные бургеры!</span>
+                <span class="header__title-text header__title-text_red">сочные инструменты!</span>
             </h1>
 
             <p class="header__appeal">Бесплатная доставка от 599₽</p>
@@ -41,34 +37,11 @@
     <nav class="navigation">
         <div class="container navigation__container">
             <ul class="navigation__list">
-                <li class="navigation__item">
-                    <button class="navigation__button navigation__button_burger navigation__button_active">Бургеры
-                    </button>
-                </li>
-                <li class="navigation__item">
-                    <button class="navigation__button navigation__button_snack">Закуски</button>
-                </li>
-                <li class="navigation__item">
-                    <button class="navigation__button navigation__button_hot-dog">Хот-доги</button>
-                </li>
-                <li class="navigation__item">
-                    <button class="navigation__button navigation__button_combo">Комбо</button>
-                </li>
-                <li class="navigation__item">
-                    <button class="navigation__button navigation__button_shawarma">Шаурма</button>
-                </li>
-                <li class="navigation__item">
-                    <button class="navigation__button navigation__button_pizza">Пицца</button>
-                </li>
-                <li class="navigation__item">
-                    <button class="navigation__button navigation__button_wok">Вок</button>
-                </li>
-                <li class="navigation__item">
-                    <button class="navigation__button navigation__button_dessert">Десерты</button>
-                </li>
-                <li class="navigation__item">
-                    <button class="navigation__button navigation__button_sauce">Соусы</button>
-                </li>
+                @foreach($categories as $category)
+                  <li class="navigation__item">
+                    <button class="navigation__button navigation__button_burger navigation__button_active">{{$category->name}}</button>
+                  </li>
+                @endforeach
             </ul>
         </div>
     </nav>
@@ -80,190 +53,58 @@
                     <div class="order__wrap-title" tabindex="0" role="button">
                         <h2 class="order__title">Корзина</h2>
 
-                        <span class="order__count">4</span>
+                        <span class="order__count" id="order_count">0</span>
                     </div>
 
-                    <div class="order__wrap_list ">
-                        <ul class="order__list">
-                            <li class="order__item">
-                                <img src="{{asset('img/burger1.jpg')}}" alt="Супер сырный" class="order__image">
+                    <div class="order__wrap_list" id="order_list" style="display: none">
+                        <ul class="order__list" id="basket">
 
-                                <div class="order__product">
-                                    <h3 class="order__product-title">Супер сырный</h3>
-
-                                    <p class="order__product-weight">512г</p>
-
-                                    <p class="order__product-price">550
-                                        <span class="currency">₽</span>
-                                    </p>
-                                </div>
-
-                                <div class="order__product-count count">
-                                    <button class="count__minus">-</button>
-                                    <p class="count__amount">1</p>
-                                    <button class="count__plus">+</button>
-                                </div>
-                            </li>
-
-                            <li class="order__item">
-                                <img src="{{asset('img/patato-free1.jpg')}}" alt="Картошка фри" class="order__image">
-
-                                <div class="order__product">
-                                    <h3 class="order__product-title">Картошка фри</h3>
-
-                                    <p class="order__product-weight">180г</p>
-
-                                    <p class="order__product-price">245
-                                        <span class="currency">₽</span>
-                                    </p>
-                                </div>
-
-                                <div class="order__product-count count">
-                                    <button class="count__minus">-</button>
-                                    <p class="count__amount">2</p>
-                                    <button class="count__plus">+</button>
-                                </div>
-                            </li>
-
-                            <li class="order__item">
-                                <img src="{{asset('img/hot-dog1.jpg')}}" alt="Жгучий хот-дог" class="order__image">
-
-                                <div class="order__product">
-                                    <h3 class="order__product-title">Жгучий хот-дог</h3>
-
-                                    <p class="order__product-weight">245г</p>
-
-                                    <p class="order__product-price">239
-                                        <span class="currency">₽</span>
-                                    </p>
-                                </div>
-
-                                <div class="order__product-count count">
-                                    <button class="count__minus">-</button>
-                                    <p class="count__amount">1</p>
-                                    <button class="count__plus">+</button>
-                                </div>
-                            </li>
                         </ul>
 
                         <div class="order__total">
                             <p>Итого</p>
                             <p>
-                                <span class="order__total-amount">1279</span>
+                                <span class="order__total-amount" id="order_total">0</span>
                                 <span class="currency">₽</span>
                             </p>
                         </div>
 
-                        <button class="order__submit">Оформить заказ</button>
+                        <button class="order__submit" onclick="showModalOrder()">Оформить заказ</button>
 
                         <div class="order__wrap-appeal">
                             <p class="order__appeal">Бесплатная доставка</p>
-                            <button class="order__close">Свернуть</button>
                         </div>
                     </div>
+
+                    <div id="order_empty">
+                      В корзине пока пусто!
+                    </div>
+
                 </section>
             </div>
 
             <div class="catalog__wrapper">
-                <h2 class="catalog__title">Бургеры</h2>
+                <h2 class="catalog__title">{{$categories[0]->name}}</h2>
 
                 <div class="catalog__wrap_list">
                     <ul class="catalog__list">
-                        <li class="catalog__item">
-                            <article class="product">
-                                <img src="{{asset('img/photo-5.jpg')}}" alt="Мясная бомба" class="product__image">
+                        @foreach($goods as $good)
+                            <li class="catalog__item">
+                                <article class="product">
+                                    <img src="{{asset('img/photo-5.jpg')}}" alt="Мясная бомба" class="product__image">
 
-                                <p class="product__price">689 <span class="currency">₽</span></p>
+                                    <p class="product__price">{{ $good->price }}<span class="currency">₽</span></p>
 
-                                <h3 class="product__title">
-                                    <button class="product__detail">Мясная бомба</button>
-                                </h3>
+                                    <h3 class="product__title">
+                                        <button class="product__detail">{{ $good->name }}</button>
+                                    </h3>
 
-                                <p class="product__weight">520г</p>
+                                    <p class="product__weight">520г</p>
 
-                                <button class="product__add" type="button">Добавить</button>
-                            </article>
-                        </li>
-
-                        <li class="catalog__item">
-                            <article class="product">
-                                <img src="{{asset('img/photo-1.jpg')}}" alt="Супер сырный" class="product__image">
-
-                                <p class="product__price">550 <span class="currency">₽</span></p>
-
-                                <h3 class="product__title">
-                                    <button class="product__detail">Супер сырный</button>
-                                </h3>
-
-                                <p class="product__weight">512г</p>
-
-                                <button class="product__add" type="button">Добавить</button>
-                            </article>
-                        </li>
-
-                        <li class="catalog__item">
-                            <article class="product">
-                                <img src="{{asset('img/photo-3.jpg')}}" alt="Сытный" class="product__image">
-
-                                <p class="product__price">639 <span class="currency">₽</span></p>
-
-                                <h3 class="product__title">
-                                    <button class="product__detail">Сытный</button>
-                                </h3>
-
-                                <p class="product__weight">580г</p>
-
-                                <button class="product__add" type="button">Добавить</button>
-                            </article>
-                        </li>
-
-                        <li class="catalog__item">
-                            <article class="product">
-                                <img src="{{asset('img/photo.jpg')}}" alt="Тяжелый удар" class="product__image">
-
-                                <p class="product__price">480 <span class="currency">₽</span></p>
-
-                                <h3 class="product__title">
-                                    <button class="product__detail">Тяжелый удар</button>
-                                </h3>
-
-                                <p class="product__weight">470г</p>
-
-                                <button class="product__add" type="button">Добавить</button>
-                            </article>
-                        </li>
-
-                        <li class="catalog__item">
-                            <article class="product">
-                                <img src="{{asset('img/photo-2.jpg')}}" alt="Вечная классика" class="product__image">
-
-                                <p class="product__price">450 <span class="currency">₽</span></p>
-
-                                <h3 class="product__title">
-                                    <button class="product__detail">Вечная классика</button>
-                                </h3>
-
-                                <p class="product__weight">450г</p>
-
-                                <button class="product__add" type="button">Добавить</button>
-                            </article>
-                        </li>
-
-                        <li class="catalog__item">
-                            <article class="product">
-                                <img src="{{asset('img/photo-4.jpg')}}" alt="Итальянский" class="product__image">
-
-                                <p class="product__price">560 <span class="currency">₽</span></p>
-
-                                <h3 class="product__title">
-                                    <button class="product__detail">Итальянский</button>
-                                </h3>
-
-                                <p class="product__weight">510г</p>
-
-                                <button class="product__add" type="button">Добавить</button>
-                            </article>
-                        </li>
+                                    <button class="product__add" type="button" id="showProduct" onclick="showModalProduct({{$good}})">Добавить</button>
+                                </article>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -282,12 +123,12 @@
                 <div class="footer__contact">
                     <h2 class="footer__title">Номер для заказа</h2>
 
-                    <a class="footer__link-phone" href="tel: +992888448410">
+                    <a class="footer__link-phone" href="tel: +992556746600">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20.01 15.38C18.78 15.38 17.59 15.18 16.48 14.82C16.13 14.7 15.74 14.79 15.47 15.06L13.9 17.03C11.07 15.68 8.42 13.13 7.01 10.2L8.96 8.54C9.23 8.26 9.31 7.87 9.2 7.52C8.83 6.41 8.64 5.22 8.64 3.99C8.64 3.45 8.19 3 7.65 3H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21C20.72 21 21 20.37 21 19.82V16.37C21 15.83 20.55 15.38 20.01 15.38Z"/>
                         </svg>
 
-                        <span>+992-(88)-844-84-10</span>
+                        <span>+992-(55)-674-66-00</span>
                     </a>
                 </div>
 
@@ -315,18 +156,69 @@
 
             <div class="footer__development">
                 <p>© YouMeal, 2022</p>
-                <p>Design: <a href="#">Anastasia Ilina</a></p>
-                <p>Developer: <a href="mailto: radzhabov.dev@gmail.com">Radzhabov Rustam</a></p>
+                <p>Developer: <a href="">Хайдаров Даврон</a></p>
             </div>
         </div>
     </div>
 </footer>
 
+<div id="modal_product" class="modal modal_product "> {{-- modal_open --}}
 
-<div class="modal modal_product">
+</div>
+<div id="modal_order" class="modal modal_delivery "> <!-- modal_open -->
+    <div class="modal__main modal-delivery">
+        <div class="modal-delivery__container">
+            <h2 class="modal-delivery__title">Доставка</h2>
+
+            <form class="modal-delivery__form" id="delivery">
+                <fieldset class="modal-delivery__fieldset">
+                    <input class="modal-delivery__input" type="text" placeholder="Ваше имя" id="form_delivery_name">
+                    <input class="modal-delivery__input" type="tel" placeholder="Телефон" id="form_delivery_phone">
+                </fieldset>
+
+                <fieldset class="modal-delivery__fieldset modal-delivery__fieldset_radio" onchange="deliveryForm(event.target.value)">
+                    <label class="modal-delivery__label">
+                        <input class="modal-delivery__radio " type="radio" name="format" value="pickup">
+                        <span>Самовывоз</span>
+                    </label>
+                    <label class="modal-delivery__label">
+                        <input class="modal-delivery__radio" type="radio" name="format" value="delivery" checked>
+                        <span>Доставка</span>
+                    </label>
+                </fieldset>
+
+                <fieldset class="modal-delivery__fieldset" id="delivery_address">
+                    <input class="modal-delivery__input" type="text" placeholder="Адресс" id="form_delivery_address">
+                </fieldset>
+            </form>
+
+            <button class="modal-delivery__submit" type="button" form="delivery" onclick="makeOrder()">Оформить</button>
+        </div>
+
+        <button class="modal__close" onclick="document.getElementById('modal_order').classList.remove('modal_open')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5.07422" y="5.28247" width="1" height="20" transform="rotate(-45 5.07422 5.28247)"/>
+                <rect x="5.78125" y="19.4246" width="1" height="20" transform="rotate(-135 5.78125 19.4246)"/>
+            </svg>
+        </button>
+    </div>
+</div>
+<script>
+  let carts = [];
+  let goods = @json($goods)
+
+  function showModalProduct(cartData) {
+    if (carts.some(item => item.id === cartData.id)) return;
+
+
+
+    document.getElementById('modal_product').classList.add('modal_open')
+    const modalProduct = document.getElementById('modal_product')
+
+    modalProduct.innerHTML = `
     <div class="modal__main modal-product">
         <div class="modal-product__container">
-            <h2 class="modal-product__title">Мясная бомба</h2>
+            <h2 class="modal-product__title">${cartData.name}</h2>
 
             <div class="modal-product__content">
                 <img src="{{asset('img/photo-5.jpg')}} " alt="Мясная бомба" class="modal-product__image">
@@ -350,72 +242,150 @@
                 <div class="modal-product__footer">
 
                     <div class="modal-product__add">
-                        <button class="modal-product__btn">Добавить</button>
-
-                        <div class="modal-product__count count">
-                            <button class="count__minus">-</button>
-                            <p class="count__amount">1</p>
-                            <button class="count__plus">+</button>
-                        </div>
+                        <button class="modal-product__btn" onclick="addToCart(${cartData.id})" >Добавить</button>
                     </div>
 
-
                 </div>
-                <p class="modal-product__price">239
+                <p class="modal-product__price">${cartData.price}
                     <span class="currency">₽</span>
                 </p>
             </div>
         </div>
 
-        <button class="modal__close">
+        <button class="modal__close"  onclick="document.getElementById('modal_product').classList.remove('modal_open')">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <rect x="5.07422" y="5.28247" width="1" height="20" transform="rotate(-45 5.07422 5.28247)"/>
                 <rect x="5.78125" y="19.4246" width="1" height="20" transform="rotate(-135 5.78125 19.4246)"/>
             </svg>
         </button>
-    </div>
-</div>
+    </div>`
+  }
 
-<div class="modal modal_delivery "> <!-- modal_open -->
-    <div class="modal__main modal-delivery">
-        <div class="modal-delivery__container">
-            <h2 class="modal-delivery__title">Доставка</h2>
 
-            <form class="modal-delivery__form" id="delivery">
-                <fieldset class="modal-delivery__fieldset">
-                    <input class="modal-delivery__input" type="text" placeholder="Ваше имя">
-                    <input class="modal-delivery__input" type="tel" placeholder="Телефон">
-                </fieldset>
+  function addToCart(id) {
+    let cartData = goods.find(item => item.id === id);
+    cartData.quantity = cartData.quantity = 1;
+    document.getElementById('modal_product').classList.remove('modal_open')
 
-                <fieldset class="modal-delivery__fieldset modal-delivery__fieldset_radio">
-                    <label class="modal-delivery__label">
-                        <input class="modal-delivery__radio " type="radio" name="format" value="pickup">
-                        <span>Самовывоз</span>
-                    </label>
-                    <label class="modal-delivery__label">
-                        <input class="modal-delivery__radio" type="radio" name="format" value="delivery" checked>
-                        <span>Доставка</span>
-                    </label>
-                </fieldset>
+    carts.push(cartData)
+    showBasket()
+    document.getElementById('order_count').textContent = carts.length
 
-                <fieldset class="modal-delivery__fieldset ">
-                    <input class="modal-delivery__input" type="text" placeholder="Улица, дом, квартира">
-                    <input class="modal-delivery__input modal-delivery__input_half" type="number" placeholder="Этаж">
-                    <input class="modal-delivery__input modal-delivery__input_half" type="number" placeholder="Домофон">
-                </fieldset>
-            </form>
+    totalPrice()
+    getGoodsOfBasket()
+  }
 
-            <button class="modal-delivery__submit" type="submit" form="delivery">Оформить</button>
-        </div>
+  function showBasket() {
+    if (carts.length > 0) {
+      document.getElementById('order_empty').setAttribute('style', 'display: none');
+      document.getElementById('order_list').setAttribute('style', 'display: block');
+    } else {
+      document.getElementById('order_list').setAttribute('style', 'display: none');
+      document.getElementById('order_empty').setAttribute('style', 'display: block');
+    }
+  }
 
-        <button class="modal__close">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <rect x="5.07422" y="5.28247" width="1" height="20" transform="rotate(-45 5.07422 5.28247)"/>
-                <rect x="5.78125" y="19.4246" width="1" height="20" transform="rotate(-135 5.78125 19.4246)"/>
-            </svg>
-        </button>
-    </div>
-</div>
+  function totalPrice() {
+    const totalPrice = carts.reduce((total, cart) => total + (cart.price * cart.quantity), 0);
+    document.getElementById('order_total').textContent = totalPrice
+    carts.totalPrice = totalPrice
+    console.log(carts)
+  }
 
+
+  function getGoodsOfBasket() {
+    const basket = document.getElementById('basket');
+    basket.innerHTML = '';
+
+    basket.innerHTML = carts.map(cart => `
+        <li class="order__item">
+            <img src="{{asset('img/burger1.jpg')}}" alt="Супер сырный" class="order__image">
+
+            <div class="order__product">
+                <h3 class="order__product-title">${cart.name}</h3>
+                <p class="order__product-weight">512г</p>
+                <p class="order__product-price">${cart.price}
+                    <span class="currency">₽</span>
+                </p>
+            </div>
+
+            <div class="order__product-count count">
+                <button class="count__minus" onclick="decreaseQuantity(${cart.id})">-</button>
+                 <p class="count__amount">${cart.quantity}</p>
+                <button class="count__plus" onclick="addingQuantity(${cart.id})">+</button>
+            </div>
+        </li>
+    `).join('');
+
+
+
+  }
+  function addingQuantity(id) {
+    let cartData = goods.find(item => item.id === id);
+    cartData.quantity = cartData.quantity += 1
+
+    totalPrice()
+    getGoodsOfBasket()
+  }
+
+  function decreaseQuantity(id) {
+    let cartData = goods.find(item => item.id === id);
+    if (cartData.quantity > 1) {
+      cartData.quantity = cartData.quantity -= 1
+
+    } else {
+      carts = carts.filter(cart => cart.id !== cartData.id)
+      document.getElementById('order_count').textContent = carts.length
+    }
+
+
+    totalPrice()
+    getGoodsOfBasket()
+    showBasket()
+  }
+  function showModalOrder() {
+    document.getElementById('modal_order').classList.add('modal_open')
+
+
+  }
+
+  function deliveryForm(event) {
+    if (event === 'pickup') {
+     document.getElementById('delivery_address').setAttribute('style', 'display: none')
+     return  carts.isDelivery = false
+    }
+    document.getElementById('delivery_address').setAttribute('style', 'display: flex')
+    return carts.isDelivery = true
+  }
+
+  function makeOrder() {
+    const formDeliveryName = document.getElementById('form_delivery_name').value
+    const formDeliveryPhone = document.getElementById('form_delivery_phone').value
+    const formDeliveryAddress = document.getElementById('form_delivery_address').value
+  
+    const product = carts.map(item => ({
+      id: item.id,
+      count: Number(item.quantity),
+      price: Number(item.price),
+    }))
+
+    const body = {
+      product: product,
+      totalPrice: carts.totalPrice,
+      isDelivery: carts.isDelivery || true,
+      name: formDeliveryName || '',
+      phone: formDeliveryPhone || '',
+      address: formDeliveryAddress || ''
+    }
+    console.log(body)
+
+    setTimeout(() => {
+      location.reload()
+    }, 500)
+  }
+
+</script>
 </body>
 </html>
+
+
