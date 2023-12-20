@@ -5,16 +5,15 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Your Meal - самый сочный бургер</title>
+    <title>Строительный интернет магазин</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('icon/apple-touch-icon.png')}}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{asset('icon/favicon-32x32.png')}}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('icon/favicon-16x16.png')}}">
     <link rel="mask-icon" href="{{asset('icon/safari-pinned-tab.svg')}}" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-
     <link rel="preload" href="{{asset('fonts/nunito-v26-cyrillic_latin-600.woff2')}}" as="font" crossorigin>
     <link rel="preload" href="{{asset('fonts/nunito-v26-cyrillic_latin-800.woff2')}}" as="font" crossorigin>
     <link rel="preload" href="{{asset('fonts/nunito-v26-cyrillic_latin-regular.woff2')}}" as="font" crossorigin>
@@ -40,8 +39,8 @@
         <div class="container navigation__container">
             <ul class="navigation__list">
                 @foreach($categories as $category)
-                  <li class="navigation__item">
-                    <button class="navigation__button navigation__button_burger navigation__button_active">{{$category->name}}</button>
+                  <li class="navigation__item" style="cursor: pointer;">
+                    <button class="navigation__button  navigation__button_active">{{$category->name}}</button>
                   </li>
                 @endforeach
             </ul>
@@ -93,7 +92,7 @@
                         @foreach($goods as $good)
                             <li class="catalog__item">
                                 <article class="product">
-                                    <img src="{{asset('img/photo-5.jpg')}}" alt="Мясная бомба" class="product__image">
+                                    <img src="{{asset('img/kaska.png')}}" alt="Мясная бомба" class="product__image">
 
                                     <p class="product__price">{{ $good->price }}<span class="currency">₽</span></p>
 
@@ -157,7 +156,7 @@
             </address>
 
             <div class="footer__development">
-                <p>© YouMeal, 2022</p>
+                <p>© Строительный интернет-магазин, 2023</p>
                 <p>Developer: <a href="">Хайдаров Даврон</a></p>
             </div>
         </div>
@@ -223,7 +222,7 @@
             <h2 class="modal-product__title">${cartData.name}</h2>
 
             <div class="modal-product__content">
-                <img src="{{asset('img/photo-5.jpg')}} " alt="Мясная бомба" class="modal-product__image">
+                <img src="{{asset('img/kaska.png')}} " alt="Мясная бомба" class="modal-product__image">
 
                 <p class="modal-product__description">Супер мясное наслаждение! Большая рубленая котлета из свежего говяжего мяса покорит вас своей сочностью, а хрустящие листья салата добавят свежести.</p>
 
@@ -301,7 +300,7 @@
 
     basket.innerHTML = carts.map(cart => `
         <li class="order__item">
-            <img src="{{asset('img/burger1.jpg')}}" alt="Супер сырный" class="order__image">
+            <img src="{{asset('img/kaska.png')}}" alt="Супер сырный" class="order__image">
 
             <div class="order__product">
                 <h3 class="order__product-title">${cart.name}</h3>
@@ -360,7 +359,7 @@
     return carts.isDelivery = true
   }
 
-  function makeOrder() {
+  async function makeOrder() {
     const formDeliveryName = document.getElementById('form_delivery_name').value
     const formDeliveryPhone = document.getElementById('form_delivery_phone').value
     const formDeliveryAddress = document.getElementById('form_delivery_address').value
@@ -382,22 +381,22 @@
 
 
 
-    fetch('/order', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-      },
-      body: JSON.stringify(body),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-      })
-      .catch((error) => {
-        console.error('Ошибка при отправке:', error);
-
+    try {
+      const response = await fetch('/order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        },
+        body: JSON.stringify(body),
       });
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+
 
   }
 
