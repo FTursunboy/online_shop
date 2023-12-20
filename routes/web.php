@@ -14,4 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\GoodController::class, 'index']);
+Route::post('/order', [\App\Http\Controllers\OrderController::class, 'store']);
 

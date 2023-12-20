@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Good;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use MoonShine\Fields\Image;
 use MoonShine\Fields\Number;
 use MoonShine\Fields\Text;
 use MoonShine\Resources\ModelResource;
@@ -27,7 +28,8 @@ class GoodResource extends ModelResource
                 ID::make()->sortable(),
                 Text::make('название', 'name'),
                 Number::make('цена', 'price'),
-                \MoonShine\Fields\Relationships\BelongsTo::make('категория', 'category', 'name')
+                \MoonShine\Fields\Relationships\BelongsTo::make('категория', 'category', 'name'),
+              Image::make('картинка', 'img')
             ]),
         ];
     }

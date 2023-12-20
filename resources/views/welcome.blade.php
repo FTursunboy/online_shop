@@ -5,7 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Your Meal - самый сочный бургер</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <title>Your Meal - самый сочный бургер</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('icon/apple-touch-icon.png')}}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{asset('icon/favicon-32x32.png')}}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('icon/favicon-16x16.png')}}">
@@ -172,23 +174,23 @@
 
             <form class="modal-delivery__form" id="delivery">
                 <fieldset class="modal-delivery__fieldset">
-                    <input class="modal-delivery__input" type="text" placeholder="Ваше имя" id="form_delivery_name">
-                    <input class="modal-delivery__input" type="tel" placeholder="Телефон" id="form_delivery_phone">
+                    <input class="modal-delivery__input" type="text" name="name" placeholder="Ваше имя" id="form_delivery_name">
+                    <input class="modal-delivery__input" type="tel" name="phone" placeholder="Телефон" id="form_delivery_phone">
                 </fieldset>
 
                 <fieldset class="modal-delivery__fieldset modal-delivery__fieldset_radio" onchange="deliveryForm(event.target.value)">
                     <label class="modal-delivery__label">
-                        <input class="modal-delivery__radio " type="radio" name="format" value="pickup">
+                        <input class="modal-delivery__radio " type="radio" name="delivery" value="Самовывоз">
                         <span>Самовывоз</span>
                     </label>
                     <label class="modal-delivery__label">
-                        <input class="modal-delivery__radio" type="radio" name="format" value="delivery" checked>
+                        <input class="modal-delivery__radio" type="radio" name="delivery" value="Доставка" checked>
                         <span>Доставка</span>
                     </label>
                 </fieldset>
 
                 <fieldset class="modal-delivery__fieldset" id="delivery_address">
-                    <input class="modal-delivery__input" type="text" placeholder="Адресс" id="form_delivery_address">
+                    <input class="modal-delivery__input" type="text" name="address" placeholder="Адресс" id="form_delivery_address">
                 </fieldset>
             </form>
 
@@ -362,9 +364,9 @@
     const formDeliveryName = document.getElementById('form_delivery_name').value
     const formDeliveryPhone = document.getElementById('form_delivery_phone').value
     const formDeliveryAddress = document.getElementById('form_delivery_address').value
-  
+
     const product = carts.map(item => ({
-      id: item.id,
+      id: item.name,
       count: Number(item.quantity),
       price: Number(item.price),
     }))
@@ -377,12 +379,28 @@
       phone: formDeliveryPhone || '',
       address: formDeliveryAddress || ''
     }
-    console.log(body)
 
-    setTimeout(() => {
-      location.reload()
-    }, 500)
+
+
+    fetch('/order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      },
+      body: JSON.stringify(body),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+      })
+      .catch((error) => {
+        console.error('Ошибка при отправке:', error);
+
+      });
+
   }
+
 
 </script>
 </body>
