@@ -41,7 +41,7 @@
             <ul class="navigation__list">
                 @foreach($categories as $category)
                   <li class="navigation__item">
-                    <button class="navigation__button navigation__button_burger navigation__button_active">{{$category->name}}</button>
+                    <button onclick="{{route('category', $category->id)}}" style="cursor: pointer;" class="navigation__button navigation__button_burger navigation__button_active">{{$category->name}}</button>
                   </li>
                 @endforeach
             </ul>

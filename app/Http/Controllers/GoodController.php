@@ -14,4 +14,11 @@ class GoodController extends Controller
 
         return view('welcome', compact('goods', 'categories'));
     }
+
+    public function category(int $id) {
+      $goods = Good::where('category_id', $id)->get();
+      $categories = Category::get();
+
+      return view('welcome', compact('goods', 'categories'));
+    }
 }
