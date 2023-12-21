@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use App\Models\Characteristic;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Good;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use MoonShine\Fields\Image;
 use MoonShine\Fields\Number;
+use MoonShine\Fields\Relationships\HasMany;
 use MoonShine\Fields\Text;
 use MoonShine\Resources\ModelResource;
 use MoonShine\Decorations\Block;
@@ -29,7 +31,14 @@ class GoodResource extends ModelResource
                 Text::make('название', 'name'),
                 Number::make('цена', 'price'),
                 \MoonShine\Fields\Relationships\BelongsTo::make('категория', 'category', 'name'),
-              Image::make('картинка', 'img')
+              Image::make('картинка', 'img')->disk('local'),
+              HasMany::make('Характеристики', 'characteristics', resource: new CharacteristicsValuesResource())
+                ->fields([
+                  \MoonShine\Fields\Relationships\BelongsTo::make('характеристика', 'characteristics', 'name', resource: new CharacteristicsResource()),
+                  Text::make('value'),
+
+                ])
+
             ]),
         ];
     }

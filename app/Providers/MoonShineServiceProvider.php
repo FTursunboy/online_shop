@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Characteristic_values;
 use App\MoonShine\Resources\CategoryResource;
+use App\MoonShine\Resources\CharacteristicsResource;
+use App\MoonShine\Resources\CharacteristicsValuesResource;
 use App\MoonShine\Resources\GoodResource;
 use App\MoonShine\Resources\OrderResource;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
@@ -30,6 +33,8 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
             MenuItem::make('Категории', new CategoryResource()),
             MenuItem::make('Товары', new GoodResource()),
             MenuItem::make('Заказы', new OrderResource()),
+            MenuItem::make('Характеристики', new CharacteristicsResource()),
+            MenuItem::make('Ключи характеристик', new CharacteristicsValuesResource()),
         ];
     }
 

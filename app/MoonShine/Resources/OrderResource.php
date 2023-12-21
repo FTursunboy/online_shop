@@ -45,4 +45,9 @@ class OrderResource extends ModelResource
             'name' => 'required'
         ];
     }
+
+  public function getActiveActions(): array
+  {
+    return ['view'];
+  }
 }
