@@ -13,6 +13,7 @@ use MoonShine\Fields\Image;
 use MoonShine\Fields\Number;
 use MoonShine\Fields\Relationships\HasMany;
 use MoonShine\Fields\Text;
+use MoonShine\Fields\Textarea;
 use MoonShine\Resources\ModelResource;
 use MoonShine\Decorations\Block;
 use MoonShine\Fields\ID;
@@ -32,10 +33,12 @@ class GoodResource extends ModelResource
                 Number::make('цена', 'price'),
                 \MoonShine\Fields\Relationships\BelongsTo::make('категория', 'category', 'name'),
               Image::make('картинка', 'img')->disk('local'),
+              Textarea::make('Описание', 'description'),
               HasMany::make('Характеристики', 'characteristics', resource: new CharacteristicsValuesResource())
                 ->fields([
                   \MoonShine\Fields\Relationships\BelongsTo::make('характеристика', 'characteristics', 'name', resource: new CharacteristicsResource()),
                   Text::make('value'),
+
 
                 ])
 
