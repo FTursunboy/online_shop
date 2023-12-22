@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\GoodController::class, 'index']);
 Route::post('/order', [\App\Http\Controllers\OrderController::class, 'store']);
-Route::post('/category', [\App\Http\Controllers\GoodController::class, 'category'])->name('category');
+Route::get('/category/{id}', [\App\Http\Controllers\GoodController::class, 'category'])->name('category');
 

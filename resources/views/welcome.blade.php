@@ -39,9 +39,12 @@
         <div class="container navigation__container">
             <ul class="navigation__list">
                 @foreach($categories as $category)
-                  <li class="navigation__item">
-                    <button onclick="{{route('category', $category->id)}}" style="cursor: pointer;" class="navigation__button navigation__button_burger navigation__button_active">{{$category->name}}</button>
-
+                  <li class="navigation__item" style="cursor: pointer;">
+                    <a href="{{ route('category', ['id' => $category->id]) }}">
+                      <button class="navigation__button {{ $loop->first ? 'navigation__button_active' : '' }}">
+                        {{ $category->name }}
+                      </button>
+                    </a>
                   </li>
                 @endforeach
             </ul>
@@ -93,7 +96,7 @@
                         @foreach($goods as $good)
                             <li class="catalog__item">
                                 <article class="product">
-                                    <img src="{{asset('img/kaska.png')}}" alt="Мясная бомба" class="product__image">
+                                    <img src="{{ asset(\Illuminate\Support\Facades\Storage::url($good->img)) }}" alt="Мясная бомба" class="product__image">
 
                                     <p class="product__price">{{ $good->price }}<span class="currency">₽</span></p>
 
@@ -167,6 +170,7 @@
 <div id="modal_product" class="modal modal_product "> {{-- modal_open --}}
 
 </div>
+
 <div id="modal_order" class="modal modal_delivery "> <!-- modal_open -->
     <div class="modal__main modal-delivery">
         <div class="modal-delivery__container">
@@ -223,9 +227,9 @@
             <h2 class="modal-product__title">${cartData.name}</h2>
 
             <div class="modal-product__content">
-                <img src="{{asset('img/kaska.png')}} " alt="Мясная бомба" class="modal-product__image">
+                <img src="http://127.0.0.1:8000/storage/${cartData.img}" alt="Мясная бомба" class="modal-product__image">
 
-                <p class="modal-product__description">Супер мясное наслаждение! Большая рубленая котлета из свежего говяжего мяса покорит вас своей сочностью, а хрустящие листья салата добавят свежести.</p>
+                <p class="modal-product__description">${cartData.description !== null ? cartData.description : 'Нету описаний'}</p>
 
                 <div class="modal-product__ingredients ingredients">
                     <h3 class="ingredients__title">Состав:</h3>
@@ -301,11 +305,11 @@
 
     basket.innerHTML = carts.map(cart => `
         <li class="order__item">
-            <img src="{{asset('img/kaska.png')}}" alt="Супер сырный" class="order__image">
+            <img src="http://127.0.0.1:8000/storage/${cart.img}" alt="${cart.name}" class="order__image">
 
             <div class="order__product">
                 <h3 class="order__product-title">${cart.name}</h3>
-                <p class="order__product-weight">512г</p>
+                <p class="order__product-weight"></p>
                 <p class="order__product-price">${cart.price}
                     <span class="currency">₽</span>
                 </p>

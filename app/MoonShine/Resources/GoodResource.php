@@ -50,4 +50,9 @@ class GoodResource extends ModelResource
     {
         return [];
     }
+
+    public function getActiveActions(): array
+    {
+      return ['view', 'update'];
+    }
 }
