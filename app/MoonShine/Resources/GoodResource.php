@@ -32,7 +32,7 @@ class GoodResource extends ModelResource
                 Text::make('название', 'name'),
                 Number::make('цена', 'price'),
                 \MoonShine\Fields\Relationships\BelongsTo::make('категория', 'category', 'name'),
-              Image::make('картинка', 'img')->disk('local'),
+              Image::make('картинка', 'img')->disk('public'),
               Textarea::make('Описание', 'description'),
               HasMany::make('Характеристики', 'characteristics', resource: new CharacteristicsValuesResource())
                 ->fields([
@@ -51,8 +51,4 @@ class GoodResource extends ModelResource
         return [];
     }
 
-    public function getActiveActions(): array
-    {
-      return ['view', 'update'];
-    }
 }

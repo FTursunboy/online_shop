@@ -41,7 +41,7 @@
                 @foreach($categories as $category)
                   <li class="navigation__item" style="cursor: pointer;">
                     <a href="{{ route('category', ['id' => $category->id]) }}">
-                      <button class="navigation__button {{ $loop->first ? 'navigation__button_active' : '' }}">
+                      <button class="navigation__button" id="navigation_button{{$category->id}}">
                         {{ $category->name }}
                       </button>
                     </a>
@@ -89,14 +89,14 @@
             </div>
 
             <div class="catalog__wrapper">
-                <h2 class="catalog__title">{{$categories[0]->name}}</h2>
+                <h2 class="catalog__title" id="catalog_title" >Все товары</h2>
 
                 <div class="catalog__wrap_list">
                     <ul class="catalog__list">
                         @foreach($goods as $good)
                             <li class="catalog__item">
                                 <article class="product">
-                                    <img src="{{ asset(\Illuminate\Support\Facades\Storage::url($good->img)) }}" alt="Мясная бомба" class="product__image">
+                                    <img src="{{Storage::url($good->img) }}" alt="{{$good->name}}" class="product__image" >
 
                                     <p class="product__price">{{ $good->price }}<span class="currency">₽</span></p>
 
@@ -120,10 +120,6 @@
 <footer class="footer">
     <div class="container">
         <div class="footer__content">
-            <svg class="footer__logo" viewBox="0 0 199 44" role="img" aria-label="Логотип YourMeal">
-                <use href="img/sprite.svg#logo"/>
-            </svg>
-
             <address class="footer__address">
                 <div class="footer__contact">
                     <h2 class="footer__title">Номер для заказа</h2>
@@ -211,13 +207,28 @@
 </div>
 <script>
   let carts = [];
-  let goods = @json($goods)
+  let goods = @json($goods);
+  let categories =  @json($categories);
+
+  let cartsInLocalStorage = JSON.parse(localStorage.getItem('carts')) || [];
+  carts = carts.concat(cartsInLocalStorage);
+
+  let id = window.location.pathname[window.location.pathname.length - 1];
+
+  const foundCategory = categories.find(category => {
+   if (category.id === Number(id)) {
+     document.getElementById(`navigation_button${category.id}`).classList.add('navigation__button_active')
+   }
+   return  category.id === Number(id)
+  });
+
+  if (foundCategory) {
+    document.getElementById('catalog_title').textContent = foundCategory.name
+  }
+
 
   function showModalProduct(cartData) {
-    if (carts.some(item => item.id === cartData.id)) return;
-
-
-
+    if (cartsInLocalStorage.some(item => item.id == cartData.id)) return;
     document.getElementById('modal_product').classList.add('modal_open')
     const modalProduct = document.getElementById('modal_product')
 
@@ -235,11 +246,7 @@
                     <h3 class="ingredients__title">Состав:</h3>
 
                     <ul class="ingredients__list">
-                        <li class="ingredients__item">Пшеничная булочка</li>
-                        <li class="ingredients__item">Котлета из говядины</li>
-                        <li class="ingredients__item">Красный лук</li>
-                        <li class="ingredients__item">Листья салата</li>
-                        <li class="ingredients__item">Соус сорчичный</li>
+                        <li class="ingredients__item">${cartData.name}</li>
                     </ul>
 
                     <p class="ingredients__calories">520г, ккал 430</p>
@@ -268,21 +275,24 @@
   }
 
 
+  document.getElementById('order_count').textContent = cartsInLocalStorage.length;
+
+
+
   function addToCart(id) {
     let cartData = goods.find(item => item.id === id);
-    cartData.quantity = cartData.quantity = 1;
+    cartData.quantity = 1;
     document.getElementById('modal_product').classList.remove('modal_open')
 
     carts.push(cartData)
-    showBasket()
-    document.getElementById('order_count').textContent = carts.length
+    localStorage.setItem('carts', JSON.stringify(carts))
+    location.reload()
 
-    totalPrice()
     getGoodsOfBasket()
   }
 
   function showBasket() {
-    if (carts.length > 0) {
+    if (cartsInLocalStorage && cartsInLocalStorage.length > 0) {
       document.getElementById('order_empty').setAttribute('style', 'display: none');
       document.getElementById('order_list').setAttribute('style', 'display: block');
     } else {
@@ -292,20 +302,21 @@
   }
 
   function totalPrice() {
-    const totalPrice = carts.reduce((total, cart) => total + (cart.price * cart.quantity), 0);
-    document.getElementById('order_total').textContent = totalPrice
-    carts.totalPrice = totalPrice
-    console.log(carts)
+    const totalPrice = cartsInLocalStorage.reduce((total, cart) => total + cart.price * cart.quantity, 0);
+    cartsInLocalStorage.totalPrice = totalPrice;
+    document.getElementById('order_total').textContent = totalPrice;
+    localStorage.setItem('carts', JSON.stringify(carts));
   }
 
+  getGoodsOfBasket();
 
   function getGoodsOfBasket() {
     const basket = document.getElementById('basket');
-    basket.innerHTML = '';
 
-    basket.innerHTML = carts.map(cart => `
-        <li class="order__item">
-            <img src="http://127.0.0.1:8000/storage/${cart.img}" alt="${cart.name}" class="order__image">
+    if (cartsInLocalStorage) {
+      basket.innerHTML = cartsInLocalStorage.map(cart =>
+        `<li class="order__item">
+            <img src="http://127.0.0.1:8000/storage/${cart.img}" alt="${cart.name}" class="order__image" />
 
             <div class="order__product">
                 <h3 class="order__product-title">${cart.name}</h3>
@@ -322,54 +333,86 @@
             </div>
         </li>
     `).join('');
-
-
-
-  }
-  function addingQuantity(id) {
-    let cartData = goods.find(item => item.id === id);
-    cartData.quantity = cartData.quantity += 1
-
+    }
+    showBasket()
     totalPrice()
-    getGoodsOfBasket()
+    document.getElementById('order_count').textContent = cartsInLocalStorage.length;
+  }
+
+  function addingQuantity(id) {
+    let cartData = cartsInLocalStorage.find(item => item.id === id);
+    cartData.quantity += 1;
+
+    if (!cartsInLocalStorage.some(item => item.id === cartData.id)) {
+      carts.push(cartData);
+      localStorage.setItem('carts', JSON.stringify(carts));
+    }
+
+    totalPrice();
+    getGoodsOfBasket();
   }
 
   function decreaseQuantity(id) {
-    let cartData = goods.find(item => item.id === id);
+    let cartData = cartsInLocalStorage.find(item => item.id === id);
     if (cartData.quantity > 1) {
-      cartData.quantity = cartData.quantity -= 1
-
+      cartData.quantity -= 1;
     } else {
-      carts = carts.filter(cart => cart.id !== cartData.id)
-      document.getElementById('order_count').textContent = carts.length
+      carts = cartsInLocalStorage.filter(cart => cart.id !== cartData.id);
+      localStorage.setItem('carts', JSON.stringify(carts));
+      location.reload()
     }
 
+    localStorage.setItem('carts', JSON.stringify(carts));
 
-    totalPrice()
-    getGoodsOfBasket()
-    showBasket()
+    getGoodsOfBasket();
+    showBasket();
   }
+
+
   function showModalOrder() {
     document.getElementById('modal_order').classList.add('modal_open')
-
-
   }
 
   function deliveryForm(event) {
     if (event === 'pickup') {
      document.getElementById('delivery_address').setAttribute('style', 'display: none')
-     return  carts.isDelivery = false
+     carts.isDelivery = false
+     return localStorage.setItem('carts', JSON.stringify(carts))
     }
     document.getElementById('delivery_address').setAttribute('style', 'display: flex')
-    return carts.isDelivery = true
+    carts.isDelivery = true
+    return localStorage.setItem('carts', JSON.stringify(carts))
+  }
+
+  function validateOrderForm() {
+    const formDeliveryName = document.getElementById('form_delivery_name')
+    const formDeliveryPhone = document.getElementById('form_delivery_phone')
+    const formDeliveryAddress = document.getElementById('form_delivery_address')
+    formDeliveryName.removeAttribute('style')
+    formDeliveryPhone.removeAttribute('style')
+    formDeliveryAddress.removeAttribute('style')
+    
+    if (formDeliveryName.value.length < 3) {
+     return  formDeliveryName.setAttribute('style', 'outline: 1px solid red')
+    }
+    if (formDeliveryPhone.value.length < 3) {
+     return  formDeliveryPhone.setAttribute('style', 'outline: 1px solid red')
+    }
+    if (formDeliveryAddress.value.length < 3) {
+     return  formDeliveryAddress.setAttribute('style', 'outline: 1px solid red')
+    }
+
+    return true
   }
 
   async function makeOrder() {
+    if (!validateOrderForm()) return
+
     const formDeliveryName = document.getElementById('form_delivery_name').value
     const formDeliveryPhone = document.getElementById('form_delivery_phone').value
     const formDeliveryAddress = document.getElementById('form_delivery_address').value
 
-    const product = carts.map(item => ({
+    const product = cartsInLocalStorage.map(item => ({
       id: item.name,
       count: Number(item.quantity),
       price: Number(item.price),
@@ -377,14 +420,12 @@
 
     const body = {
       product: product,
-      totalPrice: carts.totalPrice,
-      isDelivery: carts.isDelivery || true,
+      totalPrice: cartsInLocalStorage.totalPrice,
+      isDelivery: cartsInLocalStorage.isDelivery || true,
       name: formDeliveryName || '',
       phone: formDeliveryPhone || '',
       address: formDeliveryAddress || ''
     }
-
-
 
     try {
       const response = await fetch('/order', {
@@ -396,16 +437,14 @@
         body: JSON.stringify(body),
       });
 
-      const data = await response.json();
-      console.log(data);
+      await response.json();
+
+      localStorage.removeItem('carts')
+      location.reload()
     } catch (error) {
       console.error(error);
     }
-
-
   }
-
-
 </script>
 </body>
 </html>

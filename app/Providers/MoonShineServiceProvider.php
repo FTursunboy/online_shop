@@ -33,8 +33,8 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
             MenuItem::make('Категории', new CategoryResource()),
             MenuItem::make('Товары', new GoodResource()),
             MenuItem::make('Заказы', new OrderResource()),
-            MenuItem::make('Характеристики', new CharacteristicsResource()),
-            MenuItem::make('Ключи характеристик', new CharacteristicsValuesResource()),
+            MenuItem::make('Ключи характеристики', new CharacteristicsResource()),
+            MenuItem::make('Значении характеристик', new CharacteristicsValuesResource()),
         ];
     }
 
