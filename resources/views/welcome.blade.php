@@ -106,7 +106,17 @@
 
                                     <p class="product__weight">520г</p>
 
-                                    <button class="product__add" type="button" id="showProduct" onclick="showModalProduct({{$good}})">Добавить</button>
+                                  @php
+                                    $characteristics = [];
+                                  @endphp
+                                  @foreach($good->characteristics as $chr)
+                                    <p style="display: none">{{$chr->characteristics->name}}: {{$chr->value}}</p>
+                                    @php
+                                      $characteristics[] = $chr->characteristics->name
+                                    @endphp
+                                  @endforeach
+
+                                    <button class="product__add" type="button" id="showProduct" onclick="showModalProduct({{$good}}, {{$good->characteristics}}, {{ json_encode($characteristics) }})">Добавить</button>
                                 </article>
                             </li>
                         @endforeach
@@ -227,10 +237,13 @@
   }
 
 
-  function showModalProduct(cartData) {
+  function showModalProduct(cartData, characteristics, keys) {
     if (cartsInLocalStorage.some(item => item.id == cartData.id)) return;
     document.getElementById('modal_product').classList.add('modal_open')
     const modalProduct = document.getElementById('modal_product')
+
+    characteristics.forEach(chr => console.log(chr))
+    const characteristic = document.querySelectorAll('#characteristic')
 
     modalProduct.innerHTML = `
     <div class="modal__main modal-product">
@@ -249,7 +262,16 @@
                         <li class="ingredients__item">${cartData.name}</li>
                     </ul>
 
-                    <p class="ingredients__calories">520г, ккал 430</p>
+                    <div style="display: flex" id="characteristick">
+                     <table>
+                       <tr>
+                        <td>${keys.map(key => characteristic.textContent = `<p class="ingredients__calories">${key}</p>`).join('')}</td>
+                        <td></td>
+                        <td></td>
+                        <td>${characteristics.map(chr => characteristic.textContent = `<p class="ingredients__calories">${chr.value}</p>`).join('')}</td>
+                       </tr>
+                     </table>
+                    </div>
                 </div>
 
                 <div class="modal-product__footer">
@@ -391,7 +413,7 @@
     formDeliveryName.removeAttribute('style')
     formDeliveryPhone.removeAttribute('style')
     formDeliveryAddress.removeAttribute('style')
-    
+
     if (formDeliveryName.value.length < 3) {
      return  formDeliveryName.setAttribute('style', 'outline: 1px solid red')
     }

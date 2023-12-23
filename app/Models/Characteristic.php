@@ -10,4 +10,8 @@ class Characteristic extends Model
     use HasFactory;
 
     protected $guarded = false;
+
+    public function key() {
+      return $this->belongsTo(Characteristic_values::class);
+    }
 }
