@@ -33,7 +33,7 @@ class GoodResource extends ModelResource
                 Number::make('цена', 'price'),
                 \MoonShine\Fields\Relationships\BelongsTo::make('категория', 'category', 'name'),
               Image::make('картинка', 'img')->disk('public'),
-              Textarea::make('Описание', 'description'),
+              Textarea::make('Описание', 'description', fn($item) => str($item->description)->limit(50)),
               HasMany::make('Характеристики', 'characteristics', resource: new CharacteristicsValuesResource())
                 ->fields([
                   \MoonShine\Fields\Relationships\BelongsTo::make('характеристика', 'characteristics', 'name', resource: new CharacteristicsResource()),
