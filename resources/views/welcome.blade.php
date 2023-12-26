@@ -29,7 +29,7 @@
                 <span class="header__title-text header__title-text_red">сочные инструменты!</span>
             </h1>
 
-            <p class="header__appeal">Бесплатная доставка от 599₽</p>
+            <p class="header__appeal">Бесплатная доставка от 599TJS</p>
         </div>
     </div>
 </header>
@@ -37,9 +37,9 @@
 <main>
     <nav class="navigation">
         <div class="container navigation__container">
-            <ul class="navigation__list">
+            <ul class="navigation__list" >
                 @foreach($categories as $category)
-                  <li class="navigation__item" style="cursor: pointer;">
+                  <li class="navigation__item" style="cursor: pointer; margin-bottom: 6px;">
                     <a href="{{ route('category', ['id' => $category->id]) }}">
                       <button class="navigation__button" id="navigation_button{{$category->id}}">
                         {{ $category->name }}
@@ -54,8 +54,8 @@
     <section class="catalog">
         <div class="container catalog__container">
             <div class="catalog__order order">
-                <section class="order__wrapper "> <!-- open_order -->
-                    <div class="order__wrap-title" tabindex="0" role="button">
+                <section class="order__wrapper open_order">
+                    <div class="order__wrap-title" tabindex="0" role="button" onclick="showOrderList()">
                         <h2 class="order__title">Корзина</h2>
 
                         <span class="order__count" id="order_count">0</span>
@@ -70,7 +70,7 @@
                             <p>Итого</p>
                             <p>
                                 <span class="order__total-amount" id="order_total">0</span>
-                                <span class="currency">₽</span>
+                                <span class="currency">TJS</span>
                             </p>
                         </div>
 
@@ -81,42 +81,45 @@
                         </div>
                     </div>
 
-                    <div id="order_empty">
-                      В корзине пока пусто!
+                    <div id="order_empty" >
+                      <span style="font-size: 12px;">В корзине пока пусто!</span>
                     </div>
 
                 </section>
             </div>
 
             <div class="catalog__wrapper">
-                <h2 class="catalog__title" id="catalog_title" >Все товары</h2>
+              <div style="display: flex;align-items: center">
+                <h2 class="catalog__title" id="catalog_title">Все товары</h2>
+                <p class="filter">По возрастанию</p>
+                <p class="filter">По убыванию</p>
+              </div>
+
 
                 <div class="catalog__wrap_list">
                     <ul class="catalog__list">
                         @foreach($goods as $good)
-                            <li class="catalog__item">
+                        @php
+                          $characteristics = [];
+                        @endphp
+                        @foreach($good->characteristics as $chr)
+                          <p style="display: none">{{$chr->characteristics->name}}: {{$chr->value}}</p>
+                          @php
+                            $characteristics[] = $chr->characteristics->name
+                          @endphp
+                        @endforeach
+                            <li class="catalog__item" style="cursor: pointer" id="showProduct" onclick="showModalProduct({{$good}}, {{$good->characteristics}}, {{ json_encode($characteristics) }})">
                                 <article class="product">
                                     <img src="{{Storage::url($good->img) }}" alt="{{$good->name}}" class="product__image" >
 
-                                    <p class="product__price">{{ $good->price }}<span class="currency">₽</span></p>
+                                    <p class="product__price">{{ $good->price }}<span class="currency">TJS</span></p>
 
                                     <h3 class="product__title">
-                                        <button class="product__detail">{{ $good->name }}</button>
+                                        <button class="product__detail" id="product_detail">{{ $good->name }}</button>
                                     </h3>
 
-                                    <p class="product__weight">520г</p>
 
-                                  @php
-                                    $characteristics = [];
-                                  @endphp
-                                  @foreach($good->characteristics as $chr)
-                                    <p style="display: none">{{$chr->characteristics->name}}: {{$chr->value}}</p>
-                                    @php
-                                      $characteristics[] = $chr->characteristics->name
-                                    @endphp
-                                  @endforeach
-
-                                    <button class="product__add" type="button" id="showProduct" onclick="showModalProduct({{$good}}, {{$good->characteristics}}, {{ json_encode($characteristics) }})">Добавить</button>
+                                    <button class="product__add" type="button"  id="product_add{{$good->id}}">Добавить</button>
                                 </article>
                             </li>
                         @endforeach
@@ -134,18 +137,17 @@
                 <div class="footer__contact">
                     <h2 class="footer__title">Номер для заказа</h2>
 
-                    <a class="footer__link-phone" href="tel: +992556746600">
+                    <a class="footer__link-phone" href="tel: +992928098333">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20.01 15.38C18.78 15.38 17.59 15.18 16.48 14.82C16.13 14.7 15.74 14.79 15.47 15.06L13.9 17.03C11.07 15.68 8.42 13.13 7.01 10.2L8.96 8.54C9.23 8.26 9.31 7.87 9.2 7.52C8.83 6.41 8.64 5.22 8.64 3.99C8.64 3.45 8.19 3 7.65 3H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21C20.72 21 21 20.37 21 19.82V16.37C21 15.83 20.55 15.38 20.01 15.38Z"/>
                         </svg>
 
-                        <span>+992-(55)-674-66-00</span>
+                        <span>+992-(92)-809-83-33</span>
                     </a>
                 </div>
 
                 <div class="footer__contact">
                     <h2 class="footer__title footer__title_sn">Мы в соцсетях</h2>
-
                     <ul class="footer__list">
                         <li class="footer__list-item">
                             <a href="#" class="footer__link-sn" aria-label="группа в вк">
@@ -163,6 +165,7 @@
                         </li>
                     </ul>
                 </div>
+
             </address>
 
             <div class="footer__development">
@@ -225,6 +228,28 @@
 
   let id = window.location.pathname[window.location.pathname.length - 1];
 
+  function existsProductOnCart() {
+    const productId = []
+    goods.forEach(good => {
+      productId.push(good.id)
+    });
+    cartsInLocalStorage.forEach(item => {
+      productId.forEach(id => {
+        if (item.id === id) {
+          const addButton = document.getElementById(`product_add${id}`);
+
+          if (cartsInLocalStorage && cartsInLocalStorage.length > 0) {
+            addButton.innerText = 'В корзине';
+          } else {
+            addButton.innerText = 'Добавить';
+          }
+        }
+      })
+    });
+
+  }
+  existsProductOnCart()
+
   const foundCategory = categories.find(category => {
    if (category.id === Number(id)) {
      document.getElementById(`navigation_button${category.id}`).classList.add('navigation__button_active')
@@ -240,6 +265,10 @@
   function showModalProduct(cartData, characteristics, keys) {
     if (cartsInLocalStorage.some(item => item.id == cartData.id)) return;
     document.getElementById('modal_product').classList.add('modal_open')
+
+
+
+
     const modalProduct = document.getElementById('modal_product')
 
     characteristics.forEach(chr => console.log(chr))
@@ -248,7 +277,7 @@
     modalProduct.innerHTML = `
     <div class="modal__main modal-product">
         <div class="modal-product__container">
-            <h2 class="modal-product__title">${cartData.name}</h2>
+            <h2 class="modal-product__title" id="modal_product_title">${cartData.name}</h2>
 
             <div class="modal-product__content">
                 <img src="http://127.0.0.1:8000/storage/${cartData.img}" alt="Мясная бомба" class="modal-product__image">
@@ -256,11 +285,7 @@
                 <p class="modal-product__description">${cartData.description !== null ? cartData.description : 'Нету описаний'}</p>
 
                 <div class="modal-product__ingredients ingredients">
-                    <h3 class="ingredients__title">Состав:</h3>
-
-                    <ul class="ingredients__list">
-                        <li class="ingredients__item">${cartData.name}</li>
-                    </ul>
+                    <h3 class="ingredients__title">Характеристика:</h3>
 
                     <div style="display: flex" id="characteristick">
                      <table>
@@ -277,12 +302,12 @@
                 <div class="modal-product__footer">
 
                     <div class="modal-product__add">
-                        <button class="modal-product__btn" onclick="addToCart(${cartData.id})" >Добавить</button>
+                        <button class="modal-product__btn" onclick="addToCart(${cartData.id})">Добавить</button>
                     </div>
 
                 </div>
                 <p class="modal-product__price">${cartData.price}
-                    <span class="currency">₽</span>
+                    <span class="currency">TJS</span>
                 </p>
             </div>
         </div>
@@ -294,6 +319,8 @@
             </svg>
         </button>
     </div>`
+
+
   }
 
 
@@ -310,6 +337,7 @@
     localStorage.setItem('carts', JSON.stringify(carts))
     location.reload()
 
+
     getGoodsOfBasket()
   }
 
@@ -320,6 +348,18 @@
     } else {
       document.getElementById('order_list').setAttribute('style', 'display: none');
       document.getElementById('order_empty').setAttribute('style', 'display: block');
+    }
+
+  }
+
+  function showOrderList() {
+    if (cartsInLocalStorage && cartsInLocalStorage.length > 0) {
+      const order_list = document.getElementById('order_list');
+      if (order_list.style.display === 'none' || order_list.style.display === '') {
+        order_list.style.display = 'block';
+      } else {
+        order_list.style.display = 'none';
+      }
     }
   }
 
@@ -344,7 +384,7 @@
                 <h3 class="order__product-title">${cart.name}</h3>
                 <p class="order__product-weight"></p>
                 <p class="order__product-price">${cart.price}
-                    <span class="currency">₽</span>
+                    <span class="currency">TJS</span>
                 </p>
             </div>
 
@@ -395,36 +435,50 @@
     document.getElementById('modal_order').classList.add('modal_open')
   }
 
+  let eventTarget = ''
+
   function deliveryForm(event) {
-    if (event === 'pickup') {
+    if (event === 'Самовывоз') {
+     eventTarget = event
      document.getElementById('delivery_address').setAttribute('style', 'display: none')
      carts.isDelivery = false
      return localStorage.setItem('carts', JSON.stringify(carts))
     }
+    eventTarget = event
     document.getElementById('delivery_address').setAttribute('style', 'display: flex')
     carts.isDelivery = true
     return localStorage.setItem('carts', JSON.stringify(carts))
   }
 
   function validateOrderForm() {
+    let isValid = true
+
     const formDeliveryName = document.getElementById('form_delivery_name')
     const formDeliveryPhone = document.getElementById('form_delivery_phone')
-    const formDeliveryAddress = document.getElementById('form_delivery_address')
     formDeliveryName.removeAttribute('style')
     formDeliveryPhone.removeAttribute('style')
-    formDeliveryAddress.removeAttribute('style')
 
     if (formDeliveryName.value.length < 3) {
-     return  formDeliveryName.setAttribute('style', 'outline: 1px solid red')
+       formDeliveryName.setAttribute('style', 'outline: 1px solid red')
+       isValid = false
     }
     if (formDeliveryPhone.value.length < 3) {
-     return  formDeliveryPhone.setAttribute('style', 'outline: 1px solid red')
-    }
-    if (formDeliveryAddress.value.length < 3) {
-     return  formDeliveryAddress.setAttribute('style', 'outline: 1px solid red')
+       formDeliveryPhone.setAttribute('style', 'outline: 1px solid red')
+      isValid = false
     }
 
-    return true
+   if(eventTarget !== 'Самовывоз') {
+     const formDeliveryAddress = document.getElementById('form_delivery_address')
+     formDeliveryAddress.removeAttribute('style')
+
+     if (formDeliveryAddress.value.length < 3) {
+       formDeliveryAddress.setAttribute('style', 'outline: 1px solid red')
+       isValid = false
+     }
+   }
+
+   return isValid;
+
   }
 
   async function makeOrder() {
@@ -433,6 +487,7 @@
     const formDeliveryName = document.getElementById('form_delivery_name').value
     const formDeliveryPhone = document.getElementById('form_delivery_phone').value
     const formDeliveryAddress = document.getElementById('form_delivery_address').value
+
 
     const product = cartsInLocalStorage.map(item => ({
       id: item.name,
@@ -467,6 +522,8 @@
       console.error(error);
     }
   }
+
+
 </script>
 </body>
 </html>
