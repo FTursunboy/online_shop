@@ -38,10 +38,7 @@ class GoodResource extends ModelResource
                 ->fields([
                   \MoonShine\Fields\Relationships\BelongsTo::make('характеристика', 'characteristics', 'name', resource: new CharacteristicsResource()),
                   Text::make('value'),
-
-
                 ])
-
             ]),
         ];
     }
