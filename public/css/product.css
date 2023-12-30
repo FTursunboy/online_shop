@@ -91,7 +91,9 @@
   .product {
     padding: 12px ;
     border-radius: 18px;
-    min-height: 411px;
+    max-height: 411px;
+    height: 411px;
+
   }
 
   .product__image {

@@ -34,6 +34,7 @@
 
 
 .modal-product__description {
+  word-break: break-all;
   font-weight: 400;
   font-size: 12px;
   line-height: 130%;
@@ -142,7 +143,9 @@
   }
 
   .modal-product__title {
-    font-size: 40px;
+    font-size: 20px;
+    word-break: break-all;
+    padding-right: 25px;
     margin-bottom: 24px;
   }
 
