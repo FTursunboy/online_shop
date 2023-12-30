@@ -91,8 +91,14 @@
             <div class="catalog__wrapper">
               <div style="display: flex;align-items: center">
                 <h2 class="catalog__title" id="catalog_title">Все товары</h2>
-                <p class="filter">По возрастанию</p>
-                <p class="filter">По убыванию</p>
+                <form method="post" action="{{ route('filter', ['sort' => 'desc']) }}">
+                  @csrf
+                  <button class="filter" >Сначала дорогие</button>
+                </form>
+                <form method="post" action="{{ route('filter', ['sort' => 'asc']) }}">
+                  @csrf
+                  <button class="filter" >Сначала дешёвые</button>
+                </form>
               </div>
 
 
@@ -521,6 +527,20 @@
     } catch (error) {
       console.error(error);
     }
+  }
+
+ async function filteredGoods(param) {
+    const response = await fetch('/filter', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      },
+      body: JSON.stringify(param),
+    });
+
+   console.log(await response.json());
+
   }
 
 
