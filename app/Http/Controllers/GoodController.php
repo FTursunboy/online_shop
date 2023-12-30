@@ -21,4 +21,17 @@ class GoodController extends Controller
 
       return view('welcome', compact('goods', 'categories'));
     }
+
+    public function filter(Request $request) {
+      $request->validate([
+        'sort' => 'in:asc,desc'
+      ]);
+
+      $categories = Category::get();
+
+      $goods = Good::query()->orderBy('price', $request->sort)->get();
+
+      return view('welcome', compact('goods', 'categories'));
+
+    }
 }
